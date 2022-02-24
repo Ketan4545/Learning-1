@@ -238,14 +238,9 @@ console.log(error);
 })
 }, []) 
 
-  var todayCheck = new Date();
-  const userEmail = JSON.parse(sessionStorage.getItem("userEmail"));
-
-  const dd = String(todayCheck.getDate()).padStart(2, "0");
-  const mm = String(todayCheck.getMonth() + 1).padStart(2, "0"); //January is 0!
-  const yyyy = todayCheck.getFullYear();
-
-  todayCheck = yyyy + mm + dd;
+  
+  
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
