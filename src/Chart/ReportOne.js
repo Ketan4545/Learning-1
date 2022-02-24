@@ -4,8 +4,9 @@ import { IconButton,Stack } from '@mui/material';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from '@mui/icons-material/Delete'
 import axios from 'axios';
-
-
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
+a
 
 
 
@@ -15,6 +16,28 @@ const Reportone = () => {
     const params = useParams();
     const navigate = useNavigate();
     const [send, setSend] = useState(false)
+    
+    const options ={
+    title: {
+        text : {params['name']}
+    }, 
+          series : [
+          {data : [1, 3, 10, 3], 
+           type : 'column', 
+           name : 'Rainfall'
+           
+          },
+          {
+              data : [12, 3,10,4], 
+              type : 'spline', 
+              name : 'Temp'
+              }]
+        
+
+
+       
+    
+
 
     function editReport(){
       navigate("update")
@@ -67,6 +90,7 @@ const Reportone = () => {
                     <DeleteIcon />
                   </IconButton> 
                   </Stack>
+<HighchartsReact highcharts={Highcharts} options={options}/>
                  
         </div>
     );
