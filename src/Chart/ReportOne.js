@@ -32,7 +32,7 @@ const Reportone = () => {
               type : 'spline', 
               name : 'Temp'
               }]
-        
+        }
 
 
        
