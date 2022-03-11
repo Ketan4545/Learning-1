@@ -1,16 +1,16 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { Link, BrowserRouter, Route, Routes } from "react-router-dom";
+import { Link, BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
-import SpaceUpdate from "./Update";
-import SpaceCreate from "./Create";
-import Index from "./Index";
-import Space from "./Space";
+import SpaceUpdate from './Update';
+import SpaceCreate from './Create';
+import Index from './Index';
+import Space from './Space';
 
 export default function Base() {
   const params = useParams();
@@ -18,13 +18,13 @@ export default function Base() {
 
   return (
     <div>
-      <Stack direction="row" spacing={5}>
+      <Stack direction="row" spacing={1} height="80vh">
         <Index />
         <Box
           sx={{
-            width: "60vw",
+            // width: "100vw",
             //maxWidth: "100%"
-            pt: 10
+            pt: 10,
           }}
           component="span"
         >
@@ -32,21 +32,21 @@ export default function Base() {
             <Route exact path="create" element={<SpaceCreate />} />
             <Route
               exact
-              path={encodeURI(params["name"]) + "/update"}
+              path={encodeURI(params['id']) + '/update'}
               element={<SpaceUpdate />}
             />
           </Routes>
         </Box>
         <Box
           sx={{
-            width: "60vw",
+            // width: "80vw",
             //maxWidth: "100%"
-            pt: 10
+            pt: 1,
           }}
           component="span"
         >
           <Routes>
-            <Route exact path={encodeURI(params["name"])} element={<Space />} />
+            <Route exact path={encodeURI(params['id'])} element={<Space />} />
           </Routes>
         </Box>
       </Stack>

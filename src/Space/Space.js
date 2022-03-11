@@ -1,39 +1,66 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { IconButton, Stack } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { IconButton, Stack } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Text from './Text';
+import axios from 'axios';
 
 const Space = () => {
   const params = useParams();
-  const navigate = useNavigate();
+  const [name1, setName1] = useState('');
+  const [desc, setDesc] = useState('');
+  const [layout, setLayout] = useState('one');
+  // const navigate = useNavigate();
 
-  function editSpace() {
-    navigate("update");
-  }
+  useEffect(() => {
+    const payload = {
+      path: params['name'],
+      name: params['id'],
+    };
+
+    axios
+      .post('https://sql-dash-backend.herokuapp.com/Listdata', payload)
+      .then((res) => {
+        setName1(res.data['name']);
+        setDesc(res.data['desc']);
+        setLayout(res.data['layout']);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  let space = { path: params['name'], name: params['id'] };
+  //console.log(layout);
 
   return (
     <div>
-      <h4>Ketan</h4>
-      <Stack direction="row" spacing={2}>
-        {/* <IconButton
-          edge="end"
-          color="primary"
-          aria-label="delete"
-          size="small"
-          onClick={editSpace}
-        >
-          <EditIcon />
-        </IconButton> */}
-        <IconButton
-          color="secondary"
-          edge="end"
-          aria-label="delete"
-          size="small"
-        >
-          <DeleteIcon />
-        </IconButton>
-      </Stack>
+      <h4>
+        {params['name']}, {params['id']}
+      </h4>
+      <IconButton color="secondary" edge="end" aria-label="delete" size="small">
+        <DeleteIcon />
+      </IconButton>
+
+      <Box sx={{ width: '78vw' }}>
+        {layout === 'one' ? (
+          <Grid item xs={12}>
+            <Text data={space} space="first" height={450} />
+          </Grid>
+        ) : (
+          <>
+            <Grid item xs={12}>
+              <Text data={space} space="first" height={220} />
+            </Grid>
+            <Grid item xs={12}>
+              <Text data={space} space="second" height={220} />
+            </Grid>
+          </>
+        )}
+      </Box>
     </div>
   );
 };
